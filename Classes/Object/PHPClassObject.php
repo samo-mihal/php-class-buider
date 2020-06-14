@@ -302,6 +302,13 @@ class PHPClassObject
     private function setVariableFromString($line, $type): void
     {
         $variable = new VariableObject($this);
+        $advanceType = trim(
+            $this->getStringBetween(
+            $line,
+            $type,
+            '$'
+            )
+        );
         $variable
             ->setName(
                 $this->getStringBetween(
@@ -318,14 +325,8 @@ class PHPClassObject
                 )
             )
             ->setType(
-            $type . trim(
-                $this->getStringBetween(
-                    $line,
-                    $type,
-                    '$'
-                )
-            )
-        );
+                $advanceType ? $type . ' ' . $advanceType : $type
+            );
         $comment = $this->getCommentFromString();
         if ($comment && strpos($this->lines[$this->getArrayKeyOfLineBefore($line)], '*/') !== false) {
             $variable->setComment($comment);
