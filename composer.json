@@ -2,7 +2,7 @@
 	"name": "digitalwerk/php-class-builder",
 	"type": "php",
 	"description": "Create and render new php class file.",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"license": "GPL-2.0+",
 	"require": {},
 	"replace": {
