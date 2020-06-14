@@ -1,0 +1,23 @@
+{
+	"name": "digitalwerk/php-class-builder",
+	"type": "php",
+	"description": "Create and render new php class file.",
+	"version": "0.0.1",
+	"license": "GPL-2.0+",
+	"require": {},
+	"replace": {
+		"digitalwerk/php-class-builder": "self.version"
+	},
+	"authors": [
+		{
+			"name": "Samuel Mihal",
+			"email": "samuel.mihal@digitalwerk.agency",
+			"homepage": "https://digitalwerk.agency/"
+		}
+	],
+    "autoload": {
+        "psr-4": {
+            "Digitalwerk\\PHPClassBuilder\\": "Classes"
+        }
+    }
+}
