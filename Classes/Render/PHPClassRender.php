@@ -63,26 +63,39 @@ class PHPClassRender extends AbstractPHPClassRender
         $traits = implode("\n",$this->traitsRender->render());
         if ($traits) {
             $template[] = rtrim($traits);
-            $template[] = '';
         }
         $constants = implode("\n",$this->constantsRender->render());
         if ($constants) {
+            if ($traits) {
+                $template[] = '';
+            }
             $template[] = rtrim($constants);
-            $template[] = '';
         }
         $variables = implode("\n",$this->variablesRender->render());
         if ($variables) {
+            if ($traits || $constants) {
+                $template[] = '';
+
+            }
             $template[] = rtrim($variables);
-            $template[] = '';
         }
         $functions = implode("\n",$this->functionsRender->render());
         if ($functions) {
+            if ($traits || $variables || $constants) {
+                $template[] = '';
+            }
             $template[] = rtrim($functions);
         }
         $template[] = '}';
         $template = implode("\n", $template);
 
         if ($this->classObject->getFilename() && $template) {
+            $filePath = explode('/', $this->classObject->getFilename());
+            array_pop($filePath);
+            $fileDirectory = implode('/', $filePath);
+            if (!file_exists($fileDirectory)) {
+                mkdir($fileDirectory, 0777, true);
+            }
             file_put_contents($this->classObject->getFilename(), $template);
         }
     }

@@ -1,6 +1,7 @@
 <?php
 namespace Digitalwerk\PHPClassBuilder\Render\PHPClassRender;
 
+use Digitalwerk\PHPClassBuilder\Object\PHPClass\UsedClassObject;
 use Digitalwerk\PHPClassBuilder\Object\PHPClassObject;
 use Digitalwerk\PHPClassBuilder\Render\AbstractPHPClassRender;
 
@@ -32,8 +33,9 @@ class HeaderRender extends AbstractPHPClassRender
         $result[] = 'namespace ' . $this->classObject->getNameSpace() . ';';
         if ($this->classObject->getUsedClasses()) {
             $result[] = '';
+            /** @var UsedClassObject $usedClass */
             foreach ($this->classObject->getUsedClasses() as $usedClass) {
-                $result[] = 'use ' . $usedClass . ';';
+                $result[] = 'use ' . $usedClass->getName() . ';';
             }
             $result[] = '';
         }

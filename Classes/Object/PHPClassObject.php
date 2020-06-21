@@ -2,8 +2,10 @@
 namespace Digitalwerk\PHPClassBuilder\Object;
 
 use Digitalwerk\PHPClassBuilder\Object\PHPClass\ConstantObject;
+use Digitalwerk\PHPClassBuilder\Object\PHPClass\ContainsObject;
 use Digitalwerk\PHPClassBuilder\Object\PHPClass\FunctionObject;
 use Digitalwerk\PHPClassBuilder\Object\PHPClass\TraitObject;
+use Digitalwerk\PHPClassBuilder\Object\PHPClass\UsedClassObject;
 use Digitalwerk\PHPClassBuilder\Object\PHPClass\VariableObject;
 use Digitalwerk\PHPClassBuilder\Render\PHPClassRender;
 
@@ -17,10 +19,10 @@ class PHPClassObject
      * PHPClassObject constructor.
      * @param string $filename
      */
-    public function __construct(string $filename = '')
+    public function __construct(string $filename )
     {
+        $this->setFilename($filename);
         if ($filename && file_exists($filename)) {
-            $this->setFilename($filename);
             $this->setLines(file($this->filename));
             $this->setClassInStringFormat(implode('', $this->getLines()));
             $this->initialize();
@@ -143,16 +145,17 @@ class PHPClassObject
                 $this->setStrictMode(true);
             }
             if (strpos($line, 'use ') !== false) {
-                $usedClasses = $this->getUsedClasses();
-                $usedClasses[] =  trim(
-                        str_replace(['use ', ';'], ['', ''], $line) .
-                        $this->getStringBetween(
-                            $this->getClassInStringFormat(),
-                            str_replace(';', '', $line),
-                            ';'
+                $this->addUsedClass()
+                    ->setName(
+                        trim(
+                            str_replace(['use ', ';'], ['', ''], $line) .
+                            $this->getStringBetween(
+                                $this->getClassInStringFormat(),
+                                str_replace(';', '', $line),
+                                ';'
+                            )
                         )
                     );
-                $this->setUsedClasses($usedClasses);
             }
             if (strpos($line, 'class ') !== false) {
                 $this->setName(
@@ -698,6 +701,22 @@ class PHPClassObject
     public function addConstant(): ConstantObject
     {
         return new ConstantObject($this);
+    }
+
+    /**
+     * @return UsedClassObject
+     */
+    public function addUsedClass(): UsedClassObject
+    {
+        return new UsedClassObject($this);
+    }
+
+    /**
+     * @return ContainsObject
+     */
+    public function contains(): ContainsObject
+    {
+        return new ContainsObject($this);
     }
 
     /**
