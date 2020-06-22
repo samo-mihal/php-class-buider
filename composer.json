@@ -2,7 +2,7 @@
 	"name": "samuel-mihal/php-class-builder",
 	"type": "php",
 	"description": "Create and render new php class file.",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"license": "GPL-2.0+",
 	"require": {},
 	"replace": {
