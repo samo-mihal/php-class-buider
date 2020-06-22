@@ -37,8 +37,8 @@ class HeaderRender extends AbstractPHPClassRender
             foreach ($this->classObject->getUsedClasses() as $usedClass) {
                 $result[] = 'use ' . $usedClass->getName() . ';';
             }
-            $result[] = '';
         }
+        $result[] = '';
         if ($this->classObject->getComment()) {
             $result[] = $this->classObject->getComment();
         }

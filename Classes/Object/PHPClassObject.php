@@ -3,6 +3,7 @@ namespace Digitalwerk\PHPClassBuilder\Object;
 
 use Digitalwerk\PHPClassBuilder\Object\PHPClass\ConstantObject;
 use Digitalwerk\PHPClassBuilder\Object\PHPClass\ContainsObject;
+use Digitalwerk\PHPClassBuilder\Object\PHPClass\EditObject;
 use Digitalwerk\PHPClassBuilder\Object\PHPClass\FunctionObject;
 use Digitalwerk\PHPClassBuilder\Object\PHPClass\TraitObject;
 use Digitalwerk\PHPClassBuilder\Object\PHPClass\UsedClassObject;
@@ -717,6 +718,22 @@ class PHPClassObject
     public function contains(): ContainsObject
     {
         return new ContainsObject($this);
+    }
+
+    /**
+     * @return EditObject
+     */
+    public function edit(): EditObject
+    {
+        return new EditObject($this);
+    }
+
+    /**
+     * @return EditObject
+     */
+    public function get(): EditObject
+    {
+        return new EditObject($this);
     }
 
     /**
